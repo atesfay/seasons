@@ -25,7 +25,6 @@ class App extends React.Component{
         // THIS IS THE ONLY TIME we do direct assignment
         this.state = {latitude: null, errorMessage: ''}; 
 
-<<<<<<< HEAD
         window.navigator.geolocation.getCurrentPosition(
             //position => console.log(position),
             position => {
@@ -43,39 +42,6 @@ class App extends React.Component{
     }
 
 
-=======
-
-            // Placed in => componentDidMount()
-        // window.navigator.geolocation.getCurrentPosition(
-        //     //position => console.log(position),
-        //     position => {
-        //         // We call setState to set the postion 
-        //         this.setState({latitude: position.coords.latitude});
-
-        //         // we never do direct assigned, the only exception is that we only do in the constaructor to intialize 
-        //         //this.state.latitude = position.coords.latitude;
-        //     },
-        //     // err => console.log(err)
-        //     err => {
-        //         this.setState({ errorMessage: err.message});
-        //     }
-        // );
-    }
-
-    componentDidMount(){
-        console.log('My compenent was rendered to the screen');
-        window.navigator.geolocation.getCurrentPosition(
-            //position => console.log(position),
-            position => this.setState({latitude: position.coords.latitude}),
-            // err => console.log(err)
-            err => this.setState({ errorMessage: err.message})
-        );
-    }
-
-    componentDidUpdate(){
-        console.log('My component was just updated - It rerendered!')
-    }
->>>>>>> d8602ef (Add icon and test description for season)
 
     // React says we have to define render method 
     render(){
@@ -88,11 +54,7 @@ class App extends React.Component{
             }
 
             if (!this.state.errorMessage && this.state.latitude){
-<<<<<<< HEAD
                 return <div> Latitude : {this.state.latitude}</div>
-=======
-                return  <SeasonDisplay  lat={this.state.latitude} />
->>>>>>> d8602ef (Add icon and test description for season)
             }
 
             return <div>Loading ...</div>
