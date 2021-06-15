@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
+import SeasonDisplay from './SeasonDisplay'
 
 
 // function based
@@ -23,23 +24,37 @@ class App extends React.Component{
         // THIS IS THE ONLY TIME we do direct assignment
         this.state = {latitude: null, errorMessage: ''}; 
 
+
+            // Placed in => componentDidMount()
+        // window.navigator.geolocation.getCurrentPosition(
+        //     //position => console.log(position),
+        //     position => {
+        //         // We call setState to set the postion 
+        //         this.setState({latitude: position.coords.latitude});
+
+        //         // we never do direct assigned, the only exception is that we only do in the constaructor to intialize 
+        //         //this.state.latitude = position.coords.latitude;
+        //     },
+        //     // err => console.log(err)
+        //     err => {
+        //         this.setState({ errorMessage: err.message});
+        //     }
+        // );
+    }
+
+    componentDidMount(){
+        console.log('My compenent was rendered to the screen');
         window.navigator.geolocation.getCurrentPosition(
             //position => console.log(position),
-            position => {
-                // We call setState to set the postion 
-                this.setState({latitude: position.coords.latitude});
-
-                // we never do direct assigned, the only exception is that we only do in the constaructor to intialize 
-                //this.state.latitude = position.coords.latitude;
-            },
+            position => this.setState({latitude: position.coords.latitude}),
             // err => console.log(err)
-            err => {
-                this.setState({ errorMessage: err.message});
-            }
+            err => this.setState({ errorMessage: err.message})
         );
     }
 
-
+    componentDidUpdate(){
+        console.log('My component was just updated - It rerendered!')
+    }
 
     // React says we have to define render method 
     render(){
@@ -52,7 +67,7 @@ class App extends React.Component{
             }
 
             if (!this.state.errorMessage && this.state.latitude){
-                return <div> Latitude : {this.state.latitude}</div>
+                return  <SeasonDisplay  lat={this.state.latitude} />
             }
 
             return <div>Loading ...</div>
