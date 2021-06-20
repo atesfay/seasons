@@ -1,6 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
-import SeasonDisplay from './SeasonDisplay'
+import ReactDOM from 'react-dom';
+import SeasonDisplay from './SeasonDisplay';
+import Spinner from './Spinner';
 
 
 // function based
@@ -56,27 +57,31 @@ class App extends React.Component{
         console.log('My component was just updated - It rerendered!')
     }
 
+    renderContent(){
+        // conditional rendering 
+        if (this.state.errorMessage && !this.state.latitude) {
+            return <div> Error : {this.state.errorMessage}</div>;
+        }
+
+        if (!this.state.errorMessage && this.state.latitude) {
+            return <SeasonDisplay lat={this.state.latitude} />
+        }
+
+        return <Spinner message="Please accept location request" />
+        
+    };
+
     // React says we have to define render method 
     render(){
 
-        // return (
-
-            // conditional rendering 
-            if (this.state.errorMessage && !this.state.latitude){
-                return <div> Error : {this.state.errorMessage}</div>;
-            }
-
-            if (!this.state.errorMessage && this.state.latitude){
-                return  <SeasonDisplay  lat={this.state.latitude} />
-            }
-
-            return <div>Loading ...</div>
+         return (
+             <div className="border red">{this.renderContent()}</div>
             // <div>
             //     Latitude: {this.state.latitude}
             //     <br />
             //     Error: {this.state.errorMessage}
             // </div>
-        // );
+         );
 
     }
 }
